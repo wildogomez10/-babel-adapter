@@ -1,5 +1,5 @@
 {
-  "name": "babel-core-adapter",
+  "name": "@wildogomez/babel-adapter",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/index.js",
