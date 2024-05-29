@@ -1,0 +1,46 @@
+{
+  "name": "babel-adapter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon",
+    "start": "node dist/src/index.js",
+    "ext": "ts",
+    "exec": "ts-node ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wildogomez10/babel-adapter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wildogomez10/babel-adapter/issues"
+  },
+  "keywords": [
+    "babel",
+    "adapter",
+    "classes"
+  ],
+  "author": "Wildo Gómez",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "@types/ws": "^8.5.10",
+    "nodemon": "^3.1.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "events": "^3.3.0",
+    "express": "^4.19.2",
+    "mongodb": "^6.6.2",
+    "ts-node": "^10.9.2",
+    "ws": "^8.17.0"
+  }
+}
