@@ -37,10 +37,8 @@
   "dependencies": {
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
-    "events": "^3.3.0",
     "express": "^4.19.2",
     "mongodb": "^6.6.2",
-    "ts-node": "^10.9.2",
-    "ws": "^8.17.0"
+    "ts-node": "^10.9.2"
   }
 }
