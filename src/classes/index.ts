@@ -1,20 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { EventEmitter } from 'events';
-import { WebSocketServer } from 'ws';
-import * as tsNode from 'ts-node';
+//import { WebSocketServer } from 'ws';
+//import * as tsNode from 'ts-node';
 
 // Registrar ts-node para compilar TypeScript sobre la marcha
-tsNode.register();
+//tsNode.register();
 
 export class BabelAdapter extends EventEmitter {
     private classesDirectory = path.join(__dirname);
     private classes: { [key: string]: any } = {};
-    private wss: WebSocketServer;
+    //private wss: WebSocketServer;
 
     constructor() {
         super();
-        this.wss = new WebSocketServer({ port: 8080 });
+        //this.wss = new WebSocketServer({ port: 8080 });
     }
 
     async loadClasses() {
@@ -32,8 +32,8 @@ export class BabelAdapter extends EventEmitter {
                     // Usar import dinámico para manejar TypeScript correctamente
                     const ClassModule = await import(classFilePath);
                     this.classes[className] = ClassModule[classNameOriginal];
-                    this.emit('classAdded', className, ClassModule[className]);
-                    this.notifyClients('classAdded', className, ClassModule[classNameOriginal].toString());
+                    //this.emit('classAdded', className, ClassModule[className]);
+                    //this.notifyClients('classAdded', className, ClassModule[classNameOriginal].toString());
                 } catch (error) {
                     console.error(`Failed to load class from ${classFilePath}:`, error);
                 }
@@ -57,14 +57,14 @@ export class BabelAdapter extends EventEmitter {
         console.log('enviar caulquier cosa')
         const modddd : string = 'cualquier cosa'
 
-        this.wss.clients.forEach(client => {
+        /*this.wss.clients.forEach(client => {
             if (client.readyState === 1) {
                 client.send(JSON.stringify({ event, className, classDefinition }));
             }
-        });
+        });*/
     }
 
-    handleClientConnections() {
+    /*handleClientConnections() {
         this.wss.on('connection', (ws) => {
             console.log('New client connected');
             ws.send(JSON.stringify({ event: 'connected', message: 'Welcome to Babel-Adapter WebSocket server' }));
@@ -77,7 +77,7 @@ export class BabelAdapter extends EventEmitter {
                 console.log('Client disconnected');
             });
         });
-    }
+    }*/
 
     async reloadClasses() {
         this.classes = {};
