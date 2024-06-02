@@ -23,22 +23,28 @@ export class BabelAdapter extends EventEmitter {
         );
 
         for (const adapterDir of adapterDirectories) {
-            const classNameOriginal = adapterDir
+            const classNameOriginal = adapterDir;
             const className = adapterDir.replace('Adapter', '');
-            const classFilePath = path.join(this.classesDirectory, adapterDir, `${className}Adapter.ts`);
 
-            if (fs.existsSync(classFilePath)) {
-                try {
-                    // Usar import dinámico para manejar TypeScript correctamente
-                    const ClassModule = await import(classFilePath);
-                    this.classes[className] = ClassModule[classNameOriginal];
-                    //this.emit('classAdded', className, ClassModule[className]);
-                    //this.notifyClients('classAdded', className, ClassModule[classNameOriginal].toString());
-                } catch (error) {
-                    console.error(`Failed to load class from ${classFilePath}:`, error);
+            const classFiles = fs.readdirSync(path.join(this.classesDirectory, adapterDir))
+                .filter(file => file.startsWith(`${className}Adapter`));
+            const classFileName = classFiles[0]; // Suponiendo que solo hay un archivo con el nombre buscado
+
+            if (classFileName) {
+                const classFilePath = path.join(this.classesDirectory, adapterDir, classFileName);
+                if (fs.existsSync(classFilePath)) {
+                    try {
+                        // Usar import dinámico para manejar TypeScript correctamente
+                        const ClassModule = await import(classFilePath);
+                        this.classes[className] = ClassModule[classNameOriginal];
+                    } catch (error) {
+                        console.error(`Failed to load class from ${classFilePath}:`, error);
+                    }
+                } else {
+                    console.error(`Class file not found for ${className} in ${adapterDir}`);
                 }
             } else {
-                console.error(`Class file not found in ${adapterDir}`);
+                console.error(`No class file found for ${className} in ${adapterDir}`);
             }
         }
     }
@@ -55,7 +61,7 @@ export class BabelAdapter extends EventEmitter {
 
         console.log(`modulePath en notifyClients() : ${classDefinition}`)
         console.log('enviar caulquier cosa')
-        const modddd : string = 'cualquier cosa'
+        const modddd: string = 'cualquier cosa'
 
         /*this.wss.clients.forEach(client => {
             if (client.readyState === 1) {
